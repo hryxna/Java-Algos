@@ -2,6 +2,16 @@ package com.company;
 import java.lang.*;
 import java.util.*;
 
+/* Note:
+
+   Inputs for the following Cards are valid :
+
+     1.American Express starting with 34 or 37
+     2.VISA starting with 4
+     3.Master Card with 51, 52, 53, 54, 55
+
+ */
+
 public class LuhnsAlgo {
     public static void main(String[]args){
 
@@ -13,7 +23,7 @@ public class LuhnsAlgo {
             System.out.println("Please Enter the Credit-Card No : ");
             creditCardNo = nsc.nextLine().replaceAll("[ -]","");
 
-        }while( creditCardNo.matches("[a-zA-Z]+")|| Long.parseLong(creditCardNo) <= 0 );
+        }while( creditCardNo.matches("[0-9][a-zA-Z]+") || Long.parseLong(creditCardNo) <= 0 );
 
         Long cc_no = Long.parseLong(creditCardNo);
 
@@ -28,12 +38,10 @@ public class LuhnsAlgo {
         }
         */
 
-        int luhn = luhnAlgo(creditCardNo);
-        System.out.println(luhn);
+        int luhn = luhnAlgo(cc_no);
 
         // this is a custom length valid function
         // here if the remainder of the even + odd is "0" then card is valid
-        System.out.println(lengthIsValid(cc_no));
 
         if(lengthIsValid(cc_no) && luhn == 0) {
 
@@ -80,18 +88,19 @@ public class LuhnsAlgo {
     }
 
     // According to Luhn's Algorithm
-    private static int luhnAlgo(String cno) {
+    private static int luhnAlgo(Long cno) {
 
         int even = 0;
         int odd = 0;
+        long counter = cno;
 
-        for(int i=0; i<cno.length(); i++){
+        int i=1;
+        while (counter > 0) {
 
             // for even no. starting from the rear-end
             if(i%2==0){
-
                 // we have to multiply them with 2
-                int t = Integer.parseInt(String.valueOf(cno.charAt(i))) * 2;
+                long t = ((counter % 10) * 2);
                 // if product is a 2-digit no then split it and add it with rest of the digits till front-end
                 //i.e 2*6 = 12 -> 1+2 = 3
                 even += (t % 10) + (t / 10);
@@ -99,11 +108,10 @@ public class LuhnsAlgo {
             }
             else{
                 // we have add odd no. digits staring from rear-end till front-end
-                odd += Integer.parseInt(String.valueOf(cno.charAt(i)));
-
+                odd += counter % 10;
             }
-            //System.out.println(even);
-            //System.out.println(odd);
+            counter /= 10;
+            i++;
         }
 
         return (even + odd) % 10;
