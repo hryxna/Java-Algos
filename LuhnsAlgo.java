@@ -38,14 +38,16 @@ public class LuhnsAlgo {
         }
         */
 
+        //Step 3: Calculate the checksum using Algorithm
         int luhn = luhnAlgo(cc_no);
 
         // this is a custom length valid function
         // here if the remainder of the even + odd is "0" then card is valid
 
+        //Step 4: Checking the length of Credit Card no.
         if(lengthIsValid(cc_no) && luhn == 0) {
 
-            //lastly we have to check which card belongs to which company and print company name accordingly
+            //Step 5: lastly we have to check which card belongs to which company and print company name accordingly
             int digit = firstDigitChecker(cc_no);
 
             if(c_Length == 13 && digit == 13 || c_Length == 16 && digit == 13){
