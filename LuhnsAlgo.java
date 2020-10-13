@@ -11,7 +11,7 @@ public class LuhnsAlgo {
         do {
 
             System.out.println("Please Enter the Credit-Card No : ");
-            creditCardNo = nsc.next().replaceAll("[ -]","");
+            creditCardNo = nsc.nextLine().replaceAll("[ -]","");
 
         }while( creditCardNo.matches("[a-zA-Z]+")|| Long.parseLong(creditCardNo) <= 0 );
 
@@ -22,17 +22,91 @@ public class LuhnsAlgo {
         //we can directly find the length using built-in string function to make the process easy
         int c_Length = creditCardNo.length();
 
-        // this is a custom length valid function
-        if(lengthIsValid(cc_no) || c_Length == 13 || c_Length == 15 || c_Length == 16){
+        /*
+        if(c_Length == 13 || c_Length == 15 || c_Length == 16){
 
-            
+        }
+        */
+
+        int luhn = luhnAlgo(creditCardNo);
+        System.out.println(luhn);
+
+        // this is a custom length valid function
+        // here if the remainder of the even + odd is "0" then card is valid
+        System.out.println(lengthIsValid(cc_no));
+
+        if(lengthIsValid(cc_no) && luhn == 0) {
+
+            //lastly we have to check which card belongs to which company and print company name accordingly
+            int digit = firstDigitChecker(cc_no);
+
+            if(c_Length == 13 && digit == 13 || c_Length == 16 && digit == 13){
+                System.out.println("VISA");
+            }
+            else if(c_Length == 15 && digit == 15){
+                System.out.println("AMEX");
+            }
+            else if(c_Length == 16 && digit == 16){
+                System.out.println("MASTERCARD");
+            }
+            else{
+                System.out.println("INVALID");
+            }
+        }
+        else{
+            System.out.println("INVALID");
         }
 
-        System.out.println(cc_no);
+    }
 
+    private static int firstDigitChecker(Long cc_no) {
 
+        //AMERICAN EXPRESS
+        if(cc_no >= 34e13 && cc_no < 35e13 || cc_no >= 37e13 && cc_no < 38e13){
+            return 15;
+        }
+        //MASTERCARD
+        else if(cc_no >= 51e14 && cc_no <56e14){
+            return 16;
+        }
+        //VISA
+        else if(cc_no >= 4e12 && cc_no <5e12 || cc_no >= 4e15 && cc_no <5e15){
+            return 13;
+        }
+        //NONE of them
+        else{
+            return -1;
+        }
+    }
 
+    // According to Luhn's Algorithm
+    private static int luhnAlgo(String cno) {
 
+        int even = 0;
+        int odd = 0;
+
+        for(int i=0; i<cno.length(); i++){
+
+            // for even no. starting from the rear-end
+            if(i%2==0){
+
+                // we have to multiply them with 2
+                int t = Integer.parseInt(String.valueOf(cno.charAt(i))) * 2;
+                // if product is a 2-digit no then split it and add it with rest of the digits till front-end
+                //i.e 2*6 = 12 -> 1+2 = 3
+                even += (t % 10) + (t / 10);
+
+            }
+            else{
+                // we have add odd no. digits staring from rear-end till front-end
+                odd += Integer.parseInt(String.valueOf(cno.charAt(i)));
+
+            }
+            //System.out.println(even);
+            //System.out.println(odd);
+        }
+
+        return (even + odd) % 10;
     }
 
     private static boolean lengthIsValid(Long cc_no) {
