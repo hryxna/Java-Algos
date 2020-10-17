@@ -4,6 +4,7 @@
 > That is whether it belongs to **MASTERCARD**, **VISA**, **AMERICAN EXPRESS**.<br>
 
 ### NOTE :
+#### Input should only be digits no alphabets or any special characters or whitespaces should be allowed.
 #### For the mentioned cards it will check their first digits as well as the total no. of digits that are mentioned below :
 
 <pre>
