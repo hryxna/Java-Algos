@@ -1,4 +1,4 @@
-package com.company;
+package com.company.LuhnsAlgo;
 import java.lang.*;
 import java.util.*;
 
