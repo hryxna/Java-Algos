@@ -1,7 +1,6 @@
 package com.company;
 
-import java.io.*;
-import java.util.Stack;
+import java.util.*;
 
 //aaabccddd
 
@@ -33,18 +32,43 @@ public class reducedStr {
 
     }
 
-    public static void main(String[] args) throws IOException , NullPointerException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    private static String longSubString(String s, String result) {
 
-        String s = bufferedReader.readLine();
+        int counter =0;
+        int max =0;
+
+        for(int i=0;i<result.length();i++){
+
+            for(int j=1;j<result.length();j++){
+
+                if(s.contains(result.substring(i,j))){
+                    max++;
+                    if(max > counter)
+                    {
+                        counter = max;
+                    }
+                }
+            }
+        }
+        return "Not Found";
+    }
+
+    public static void main(String[] args) throws NullPointerException {
+
+        Scanner scan = new Scanner(System.in);
+
+        String s = scan.nextLine();
 
         String result = superReducedString(s);
 
-        bufferedWriter.write(result);
-        bufferedWriter.newLine();
+        String longestSubString = longSubString(s,result);
 
-        bufferedReader.close();
-        bufferedWriter.close();
+        System.out.println(result);
+
+        System.out.println(longestSubString);
+
+        scan.close();
     }
+
+
 }
