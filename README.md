@@ -1,5 +1,5 @@
 # Java-Algos
-Algorithms In Java and Python and accepted here
+Algorithms In Java and Python and accepted here for **Hacktoberfest**
 
 Hello Everyone :wave:
 
