@@ -1,4 +1,4 @@
-# Java-Algos
+# Java / Python - Algos
 Algorithms In Java and Python and accepted here for **Hacktoberfest**
 
 Hello Everyone :wave:
