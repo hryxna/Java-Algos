@@ -14,7 +14,8 @@ public class readability {
 
             strlen = input.length();
 
-            letters = words = sent = 0;
+            letters = sent = 0;
+            words = 1;
 
             for (int i = 0; i < strlen; i++)
             {
