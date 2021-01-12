@@ -3,6 +3,9 @@ package com.company;
 import java.util.Scanner;
 
 public class insertSort {
+
+    //static int [] arr = {5, 15, 20, 30, 40, 75, 100};
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int len = sc.nextInt();
